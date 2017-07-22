@@ -4,7 +4,7 @@ var camera, controls, currentSong;
 var dnaCurveObject, lightSpot, directionalLight, ambientLight, worlds=[], gui;
 var renderer = new THREE.WebGLRenderer({ antialias: true, logarithmicDepthBuffer: 'logzbuf' });//new THREE.WebGLRenderer( { antialias: true } );
 //Creating a 400 points DNA CURVE OBJECT with 5 points of interpolations
-var dnaCurveObject=new DNACurveObject(4,5);
+var dnaCurveObject=new DNACurveObject(400,5);
 
 // GUI PARAMS
 var params = {
@@ -83,6 +83,7 @@ function populateScene(){
   worlds.push(new Song2(radius,worlds.length,0xff8888, 0x220022));
   radius*=20;
   worlds.push(new Song1(radius,worlds.length,0x000000, 0x111111));
+
   scene.scale.set(scene_scale,scene_scale,scene_scale);
 }
 
