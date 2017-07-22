@@ -4,7 +4,7 @@ var camera, controls, currentSong;
 var dnaCurveObject, lightSpot, directionalLight, ambientLight, worlds=[], gui;
 var renderer = new THREE.WebGLRenderer({ antialias: true, logarithmicDepthBuffer: 'logzbuf' });//new THREE.WebGLRenderer( { antialias: true } );
 //Creating a 400 points DNA CURVE OBJECT with 5 points of interpolations
-var dnaCurveObject=new DNACurveObject(400,5);
+var dnaCurveObject=new DNACurveObject(4,5);
 
 // GUI PARAMS
 var params = {
@@ -47,11 +47,11 @@ function init(){
 
   //LIGHT
   directionalLight = new THREE.DirectionalLight( 0xffffff );
-  scene.add(directionalLight);
+  //scene.add(directionalLight);
   ambientLight=new THREE.AmbientLight( 0xffffff,0.3 );
   scene.add(ambientLight);
   lightSpot = new THREE.Mesh( new THREE.SphereGeometry( 4,30,30),  new THREE.MeshBasicMaterial() ) ;
-  scene.add( lightSpot );
+ // scene.add( lightSpot );
 
   //CAMERA CONTROLS
   camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, worlds[worlds.length-1].radius*10 );
@@ -62,7 +62,7 @@ function init(){
   // RENDERER
   renderer.setSize( window.innerWidth, window.innerHeight );
   renderer.setClearColor( 0x000000,1	 );
-  renderer.setPixelRatio( window.devicePixelRatio );
+  //renderer.setPixelRatio( window.devicePixelRatio );
   document.body.appendChild( renderer.domElement );
 
   window.addEventListener( 'resize', onResize );
@@ -75,13 +75,13 @@ function populateScene(){
   var radius=1;
   //worlds.push(new Gateway(radius,worlds.lenght-1,0xaa8888, 0x443344));
   worlds.push(new Gateway(radius,worlds.lenght,0xffffff, 0x443344));
-  radius*=45;
+  radius*=40;
   worlds.push(new Song4(radius,worlds.length,0x777777,0x332233));
-  radius*=25;
+  radius*=20;
   worlds.push(new Song3(radius,worlds.length,0xaa8888, 0x443344));
-  radius*=25;
+  radius*=20;
   worlds.push(new Song2(radius,worlds.length,0xff8888, 0x220022));
-  radius*=25;
+  radius*=20;
   worlds.push(new Song1(radius,worlds.length,0x000000, 0x111111));
   scene.scale.set(scene_scale,scene_scale,scene_scale);
 }

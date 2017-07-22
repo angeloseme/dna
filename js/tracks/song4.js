@@ -37,7 +37,7 @@ Song4 = function (r,i, color1,color2){
       dnaCurveObject.moveToIndex(1);
     }
     //ANIMATING COLOR THROUGH A SIN WAVE
-    worlds[this.index-1].setColor(Math.random()*0xffffff,Math.random()*0xffffff);
+//    worlds[this.index-1].setColor(Math.random()*0xffffff,Math.random()*0xffffff);
 
   }
 
