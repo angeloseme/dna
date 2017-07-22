@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js canvas - geometry - NURBS</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				font-family: Monospace;
+				background-color: #f0f0f0;
+				margin: 0px;
+				overflow: hidden;
+			}
+			#info {
+				position: absolute;
+				top: 0px;
+				width: 100%;
+				padding: 5px;
+				text-align:center;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="container"><canvas id="debug" style="position:absolute; left:100px"></canvas></div>
+		<span style="position:fixed;left:0px;bottom:0px;font-size:30px;color:white; background-color:black;" id="log"></span>
+		<script src="js/three.js"></script>
+
+		<script src="js/jquery.min.js"></script>
+		<script src="js/OBJLoader.js"></script>
+		<script src="js/Projector.js"></script>
+		<script src="js/CanvasRenderer.js"></script>
+		<script src="js/gateway.js"></script>
+
+		<script src="js/song1.js"></script>
+		<script src="js/song2.js"></script>
+		<script src="js/song3.js"></script>
+		<script src="js/song4.js"></script>
+
+		<script src="js/DNACurveObject.js"></script>
+		<script src="js/stats.min.js"></script>
+		<script src="js/dat.gui.min.js"></script>
+		<script src="js/OrbitControls.js"></script>
+		<script src="js/util.js"></script>
+
+		<script type="x-shader/x-vertex" id="vertexShader">
+			varying vec3 vWorldPosition;
+			void main() {
+				vec4 worldPosition = modelMatrix * vec4( position, 1.0 );
+				vWorldPosition = worldPosition.xyz;
+				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+			}
+		</script>
+
+		<script type="x-shader/x-fragment" id="fragmentShader">
+			uniform vec3 topColor;
+			uniform vec3 bottomColor;
+			uniform float offset;
+			uniform float exponent;
+			uniform float opacity;
+			varying vec3 vWorldPosition;
+			void main() {
+				float h = normalize( vWorldPosition + offset ).y;
+				gl_FragColor = vec4( mix( bottomColor, topColor, max( pow( max( h , 0.0), exponent ), 0.0 ) ), opacity );
+			}
+		</script>
+		<script src="js/visualization.js">
+
+		</script>
+
+	</body>
+</html>
