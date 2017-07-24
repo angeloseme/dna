@@ -159,7 +159,7 @@ function animate() {
     }
   }
   if(params.playing)controls.constraint.dollyIn(1.001);
-  if(params.auto_rotate)controls.autoRotate=params.auto_rotate;
+  controls.autoRotate=params.auto_rotate;
 
   //RECURSIVE CAMERA MOVEMENT
   if(camera.position.distanceTo(new THREE.Vector3(0,0,0))<worlds[0].radius*2)
