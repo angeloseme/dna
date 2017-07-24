@@ -88,11 +88,11 @@ function populateScene(){
   radius*=80;
   worlds.push(new Song4(radius,worlds.length,0x777777,0x332233));
   radius*=12;
-  worlds.push(new AudioReactiveExampleSong(radius,worlds.length,0x000000, 0x222222));
-  radius*=12;
   worlds.push(new MeshPhongExampleSong(radius,worlds.length,0xffffff, 0x222222));
   radius*=12;
   worlds.push(new Song1(radius,worlds.length,0x777777, 0x222222));
+  radius*=12;
+  worlds.push(new AudioReactiveExampleSong(radius,worlds.length,0x000000, 0x222222));
 
 /*
 worlds.push(new Gateway(radius,worlds.lenght,0xffffff, 0x443344));
