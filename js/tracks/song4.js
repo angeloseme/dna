@@ -7,16 +7,15 @@ Song4 = function (r,i, color1,color2){
   //addMeshPhongSphere(r,color1);//
 
   this.params={
-    threshold:0.5,
-    transition_speed:0.6
+    threshold:0.5
   };
 
   this.addGUIFolder=function(){
     var folderSong = gui.addFolder( 'Song1' );
     folderSong.add( this.params, 'threshold', 0.0, 1 ).onChange( function( value ) {  } ).listen();
-    folderSong.add( this.params, 'transition_speed', 0.0, 1 ).onChange( function( value ) {
-      dnaCurveObject.transition_speed=1.0-value;
-    } ).listen();
+
+
+
   }
 
   this.addGUIFolder();
@@ -46,11 +45,11 @@ Song4 = function (r,i, color1,color2){
     //IF POSITION >0.5 THE DNA WILL BECAME HEAD (INDEX 0)
     //ELSE KEEP THE DNA SHAPE (INDEX 1)
     if(position>this.params.threshold){
-      dnaCurveObject.moveToIndex(1);
+      //dnaCurveObject.moveToIndex(1);
       controls.constraint.rotateUp(0.0008);
     }
     else{
-      dnaCurveObject.moveToIndex(0);
+      //dnaCurveObject.moveToIndex(0);
       controls.constraint.rotateUp(-0.004);
     }
 

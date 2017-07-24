@@ -13,7 +13,10 @@ var params = {
   ambient_light_color:0xffffff,
   ambient_light_intensity:0.1,
   directional_light_color:0xffffff,
-  directional_light_intensity:0.5
+  directional_light_intensity:0.5,
+  dna_index:0,
+  dna_scale:1,
+  transition_speed:0.6
 };
 
 //SETUP DEBUG GUI
@@ -29,6 +32,10 @@ function initGUI(){
   folderGeneral.add( params, 'playback', 0.0, 1 ).onChange( function( value ) {  } ).listen();
   folderGeneral.add( params, 'song', 1, 10 ).step(1).onChange( function( value ) {  } ).listen();
 
+  var folderDNA = gui.addFolder( 'DNA' );
+  folderDNA.add(params, 'dna_index', 0.0, dnaCurveObject.vertices.length).step(1).onChange( function( value ) { dnaCurveObject.moveToIndex(value); } ).listen();
+  folderDNA.add(params, 'dna_scale', 0.0, 5 ).onChange( function( value ) {dnaCurveObject.scale(value);} ).listen();
+  folderDNA.add(params, 'transition_speed', 0.0, 1 ).onChange( function( value ) {  dnaCurveObject.transition_speed=1.0-value;} ).listen();
 
   folderLight.addColor( params, 'ambient_light_color').onChange( function( value ) { ambientLight.color=new THREE.Color(value); } ).listen();
   folderLight.add(params, 'ambient_light_intensity', 0.0, 1.0).onChange( function( value ) {  ambientLight.intensity=value;} ).listen();
@@ -46,14 +53,23 @@ function onResize() {
 
 //INIT
 function init(){
+//  dnaCurveObject.addOBJ("obj/LeePerrySmith.obj",0.01,new THREE.Vector3(0,-4400,0),0,1,function(){ console.log("loaded?")});
+  dnaCurveObject.addDNAShape(1);
+  dnaCurveObject.addDNAShape(1);
+  dnaCurveObject.addDNAShape(1);
+  dnaCurveObject.addDNAShape(1);
+  dnaCurveObject.addOBJ("obj/man.obj",0.01,new THREE.Vector3(0,-4400,0),0,1,function(){ });
+
+
   initGUI();
   populateScene();
 
   //LOADING DNA RANDOM VERTEXES AT INDEX 0
-  //dnaCurveObject.addDNAShape();
-  dnaCurveObject.addDNAShape(0.99);
+
+
+
+
   //LOADING OBJ FILE VERTEXES AT INDEX 1. LOADING ONLY FROM 0.8 to 1 (only the head)
-  dnaCurveObject.addOBJ("obj/man.obj",0.01,new THREE.Vector3(0,-4400,0),0,1,function(){ });
 
   //LIGHT
   directionalLight = new THREE.PointLight(params.directional_light_color, params.directional_light_intensity);
@@ -90,7 +106,7 @@ function populateScene(){
   radius*=12;
   worlds.push(new MeshPhongExampleSong(radius,worlds.length,0xffffff, 0x222222));
   radius*=12;
-  worlds.push(new Song1(radius,worlds.length,0x777777, 0x222222));
+  worlds.push(new PlaneSong(radius,worlds.length,0x777777, 0x222222));
   radius*=12;
   worlds.push(new AudioReactiveExampleSong(radius,worlds.length,0x000000, 0x222222));
 
