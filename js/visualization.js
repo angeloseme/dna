@@ -16,7 +16,9 @@ var params = {
   directional_light_intensity:0.5,
   dna_index:0,
   dna_scale:1,
-  transition_speed:0.6
+  transition_speed:0.6,
+  playing:true,
+  auto_rotate:false
 };
 
 //SETUP DEBUG GUI
@@ -31,6 +33,8 @@ function initGUI(){
   var folderLight = gui.addFolder( 'Light' );
   folderGeneral.add( params, 'playback', 0.0, 1 ).onChange( function( value ) {  } ).listen();
   folderGeneral.add( params, 'song', 1, 10 ).step(1).onChange( function( value ) {  } ).listen();
+  folderGeneral.add( params, 'playing');
+  folderGeneral.add( params, 'auto_rotate');
 
   var folderDNA = gui.addFolder( 'DNA' );
   folderDNA.add(params, 'dna_index', 0.0, dnaCurveObject.vertices.length).step(1).onChange( function( value ) { dnaCurveObject.moveToIndex(value); } ).listen();
@@ -154,7 +158,8 @@ function animate() {
       params.playback=position;
     }
   }
-  controls.constraint.dollyIn(1.001);
+  if(params.playing)controls.constraint.dollyIn(1.001);
+  if(params.auto_rotate)controls.autoRotate=params.auto_rotate;
 
   //RECURSIVE CAMERA MOVEMENT
   if(camera.position.distanceTo(new THREE.Vector3(0,0,0))<worlds[0].radius*2)
