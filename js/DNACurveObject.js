@@ -10,7 +10,7 @@ DNACurveObject = function (n_points,resolution){
   this.line_material=new THREE.MeshBasicMaterial({ color: 0x999999,transparent:true,opacity:0.5 });//new THREE.MeshBasicMaterial({ color: 0xffffff,transparent:true,opacity:0.7,shininess:500,specular: 0xffffff,emissive: 0xffffff});;
   this.sphere_material=new THREE.MeshBasicMaterial({ color: 0x000000,transparent:true,opacity:1 });
   this.spheres=[];
-
+  this.group=new THREE.Group();
 
   this.init=function(){
     var aux_v=[];
@@ -27,8 +27,10 @@ DNACurveObject = function (n_points,resolution){
       var helper = new THREE.Mesh( sphereGeomtry, this.sphere_material );
       //helper.position.copy( this.dnaCurve.points[i] );
       this.spheres.push(helper);
-      scene.add( helper );
+      this.group.add(helper);
     }
+    scene.add(this.group);
+    this.scale(400);
   }
 
 
@@ -39,7 +41,13 @@ DNACurveObject = function (n_points,resolution){
           this.alpha*this.vertices[this.index][i].x+(1.0-this.alpha)*this.dnaCurve.points[i].x,
           this.alpha*this.vertices[this.index][i].y+(1.0-this.alpha)*this.dnaCurve.points[i].y,
           this.alpha*this.vertices[this.index][i].z+(1.0-this.alpha)*this.dnaCurve.points[i].z);
-        this.spheres[i].position.copy(this.dnaCurve.points[i]);
+        this.spheres[i].position.copy(this.dnaCurve.points[i]
+          //new THREE.Vector3(
+    //      this.dnaCurve.points[i].x*this.dnaCurveObject.scale.x,
+    //      this.dnaCurve.points[i].y*this.dnaCurveObject.scale.y,
+    //      this.dnaCurve.points[i].z*this.dnaCurveObject.scale.z
+    //  )
+      );
      }
 
      this.dnaCurveObject.geometry.vertices = this.dnaCurve.getPoints(this.n_points*this.resolution );
@@ -51,7 +59,12 @@ DNACurveObject = function (n_points,resolution){
 
   this.addVertices=function(vertices){
     this.vertices.push(vertices);
-    console.log("Adding vertices: "+vertices.length);
+  }
+
+  this.scale=function(s){
+    this.dnaCurveObject.scale.set(s,s,s);
+    this.group.scale.set(s,s,s);
+
   }
 
   this.addDNAShape=function(scale=1){
