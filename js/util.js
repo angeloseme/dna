@@ -1,14 +1,22 @@
 //SPHERE UTILS
 
-function addBasicSphere(radius,color){
+function addBasicSphere(radius,color,texture){
   var material= new THREE.MeshBasicMaterial({ color: color,transparent:true,opacity:1 });
 	var mesh = new THREE.Mesh( new THREE.SphereGeometry( radius, 50, 50 ), material );
 	scene.add(mesh);
 	return mesh;
 }
 
-function addMeshPhongSphere(radius,color){
-	var   material=new THREE.MeshPhongMaterial({ color: color,transparent:true,opacity:1,side: THREE.DoubleSide });
+function addMeshPhongSphere(radius,color, shininess=20, texture,repeatX=1,repeatY=1, wrapping=THREE.MirroredRepeatWrapping){
+  var material;
+  if(texture){
+    texture=THREE.ImageUtils.loadTexture(texture) ;
+    texture.wrapS = texture.wrapT = wrapping;
+    texture.repeat.set(repeatX, repeatY);
+  //  texture.offset.set(100, 200);
+    material = new THREE.MeshPhongMaterial( { color: color, shininess:shininess, transparent:true,opacity:1,side: THREE.DoubleSide ,  map: texture} );
+  }else
+    material = new THREE.MeshPhongMaterial( { color: color, shininess:shininess, transparent:true,opacity:1,side: THREE.DoubleSide });
   var mesh = new THREE.Mesh( new THREE.SphereGeometry( radius, 50, 50 ), material );
 	scene.add(mesh);
 	return mesh;

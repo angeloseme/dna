@@ -6,7 +6,7 @@ DNACurveObject = function (n_points,resolution){
   this.current_points;
   this.vertices=[];
   this.alpha=0.999;
-  this.animation_length=5;
+  this.transition_speed=0.6;
   this.line_material=new THREE.MeshBasicMaterial({ color: 0x999999,transparent:true,opacity:0.5 });//new THREE.MeshBasicMaterial({ color: 0xffffff,transparent:true,opacity:0.7,shininess:500,specular: 0xffffff,emissive: 0xffffff});;
   this.sphere_material=new THREE.MeshBasicMaterial({ color: 0x000000,transparent:true,opacity:1 });
   this.spheres=[];
@@ -31,20 +31,22 @@ DNACurveObject = function (n_points,resolution){
     }
   }
 
+
   this.update=function(){
     if(this.alpha<1){
       for(var i=0;i<this.n_points;i++){
-        this.dnaCurve.points[i].set(this.alpha*this.vertices[this.index][i].x+(1.0-this.alpha)*this.vertices[this.prevIndex][i].x,
-        this.alpha*this.vertices[this.index][i].y+(1.0-this.alpha)*this.vertices[this.prevIndex][i].y,
-        this.alpha*this.vertices[this.index][i].z+(1.0-this.alpha)*this.vertices[this.prevIndex][i].z);
+        this.dnaCurve.points[i].set(
+          this.alpha*this.vertices[this.index][i].x+(1.0-this.alpha)*this.dnaCurve.points[i].x,
+          this.alpha*this.vertices[this.index][i].y+(1.0-this.alpha)*this.dnaCurve.points[i].y,
+          this.alpha*this.vertices[this.index][i].z+(1.0-this.alpha)*this.dnaCurve.points[i].z);
         this.spheres[i].position.copy(this.dnaCurve.points[i]);
      }
 
      this.dnaCurveObject.geometry.vertices = this.dnaCurve.getPoints(this.n_points*this.resolution );
      this.dnaCurveObject.geometry.verticesNeedUpdate = true;
     }
-    this.alpha=clamp(this.alpha+1/(this.animation_length*60.0),0,1);
-    
+    this.alpha=clamp(this.alpha+1/(this.transition_speed*10000.0),0,1);
+    //$('#log').text(this.alpha);
   }
 
   this.addVertices=function(vertices){
@@ -52,14 +54,14 @@ DNACurveObject = function (n_points,resolution){
     console.log("Adding vertices: "+vertices.length);
   }
 
-  this.addDNAShape=function(){
+  this.addDNAShape=function(scale=1){
     var positions=[];
     positions.push(new THREE.Vector3(0,0,0));
     for(var i=1;i<this.n_points;i++){
     	positions.push(new THREE.Vector3(
-        positions[positions.length-1].x+Math.random()*1.1-0.5,//*i-i,
-    		positions[positions.length-1].y+Math.random()*1.1-0.5,//*i-i,
-    		positions[positions.length-1].z+Math.random()*1.1-0.5));//*i-i));
+        scale*(positions[positions.length-1].x+Math.random()*1.1-0.5),//*i-i,
+    		scale*(positions[positions.length-1].y+Math.random()*1.1-0.5),//*i-i,
+    		scale*(positions[positions.length-1].z+Math.random()*1.1-0.5)));//*i-i));
     }
     this.addVertices(positions);
   }
@@ -89,33 +91,20 @@ DNACurveObject = function (n_points,resolution){
 
   this.moveToIndex=function(index){
     if(index!=this.index){
-
-      this.prevIndex=this.index;
       this.index=index;
-      console.log("changing! "+this.prevIndex+" "+this.index);
+      console.log("changing to "+this.index+"!");
       this.alpha=0;
     }
   }
 
   this.setIndex=function(index){
     if(index!=this.index){
-      this.prevIndex=this.index;
       this.index=index;
       console.log("set_changing! "+this.prevIndex+" "+this.index);
       this.alpha=0.9999999999999999;
     }
   }
 
-  this.getPosition=function(i){
-    var t= new THREE.Vector3(
-      this.alpha*this.vertices[this.index][i].x+(1.0-this.alpha)*this.vertices[this.prevIndex][i].x,
-      this.alpha*this.vertices[this.index][i].y+(1.0-this.alpha)*this.vertices[this.prevIndex][i].y,
-      this.alpha*this.vertices[this.index][i].z+(1.0-this.alpha)*this.vertices[this.prevIndex][i].z
-    );
-    $('#log').text(this.alpha+": "+this.prevIndex+" -> "+this.index);
-    this.spheres[i].position.copy(t);
-    return t;
 
-  }
   this.init();
 }

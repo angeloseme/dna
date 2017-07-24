@@ -2,6 +2,8 @@ Gateway = function (r,i, color1,color2){
     this.radius=r;
     this.index=i
     this.sphere=addGradientShaderSphere(r,color1, color2);
+    this.name="";
+    this.author="";
 
   this.setColor=function(color1,color2){
     if(this.sphere.material instanceof THREE.ShaderMaterial){
@@ -20,14 +22,10 @@ Gateway = function (r,i, color1,color2){
 
   }
 
-  this.songDidChange=function(s){
-    if(s==this){
-      //This song just started
+  this.songDidStart=function(s){
+    console.log("New song: "+this.author+" - "+this.title);
+  }
 
-        console.log(this);
-    }
-    else{
-      //Other song started
-    }
+  this.songDidEnd=function(s){
   }
 }
