@@ -72,9 +72,9 @@ DNACurveObject = function (n_points,resolution){
     positions.push(new THREE.Vector3(0,0,0));
     for(var i=1;i<this.n_points;i++){
     	positions.push(new THREE.Vector3(
-        scale*(positions[positions.length-1].x+Math.random()*1.1-0.5),//*i-i,
-    		scale*(positions[positions.length-1].y+Math.random()*1.1-0.5),//*i-i,
-    		scale*(positions[positions.length-1].z+Math.random()*1.1-0.5)));//*i-i));
+        positions[positions.length-1].x+scale*(Math.random()*1.1-0.5),//*i-i,
+    		positions[positions.length-1].y+scale*(Math.random()*1.1-0.5),//*i-i,
+    		positions[positions.length-1].z+scale*(Math.random()*1.1-0.5)));//*i-i));
     }
     this.addVertices(positions);
   }
