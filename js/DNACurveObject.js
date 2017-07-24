@@ -30,7 +30,7 @@ DNACurveObject = function (n_points,resolution){
       this.group.add(helper);
     }
     scene.add(this.group);
-    this.scale(400);
+
   }
 
 
