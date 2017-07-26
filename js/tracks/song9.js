@@ -1,0 +1,38 @@
+class Song9 extends Song{
+  constructor(r,i, color1,color2){
+    super(r,i, color1,color2);
+    this.sphere=getGradientShaderSphere(r,color1, color2);
+    this.addObject(this.sphere);
+  }
+
+  play(position){
+    super.play(position);
+    worlds[this.index+1].setColor(new THREE.Color(1-frequencyData[3]/255.0,1-frequencyData[4]/255.0,1-frequencyData[5]/255.0).getHex(),
+                      new THREE.Color(frequencyData[6]/255.0,frequencyData[7]/255.0,frequencyData[8]/255.0).getHex());
+
+  }
+
+  songDidStart(s){
+    super.songDidStart();
+    //dnaCurveObject.setVisible(true);
+    if(obj_file){
+      obj_file.visible=true;
+      obj_file.scale.set(0.8,0.8,0.8);
+      obj_file.material.color=new THREE.Color(0x000000);
+    }
+    params.auto_rotate=controls.autoRotate=true;
+  }
+
+  songDidEnd(s){
+    super.songDidEnd();
+    if(obj_file){
+      obj_file.visible=false;
+      obj_file.material.color=new THREE.Color(0xffffff);
+      obj_file.material.needsUpdate=true;
+    }
+    controls.autoRotate=false;
+    params.auto_rotate=controls.autoRotate=false;
+    //dnaCurveObject.setVisible(false);
+
+  }
+}

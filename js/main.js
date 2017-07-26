@@ -1,6 +1,7 @@
 
   var sound = new Howl({
-      src: ['audio/1.mp3']
+      src: ['audio/1.mp3'],
+      loop: true
     });
 
   var analyser =   Howler.ctx.createAnalyser();
@@ -10,5 +11,3 @@
   sound.once('load', function(){
     sound.play();
   });
-
-  init();
