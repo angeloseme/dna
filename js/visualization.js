@@ -81,7 +81,7 @@ function init(){
   dnaCurveObject.addDNAShape(0.5);
   dnaCurveObject.addDNAShape(0.5);
   dnaCurveObject.addDNAShape(0.5);
-  dnaCurveObject.setIndex(0);
+  dnaCurveObject.setIndex(3);
   //dnaCurveObject.addOBJ("obj/man.obj",0.01,new THREE.Vector3(0,-4400,0),0,1,function(){ });
   //
 
@@ -151,7 +151,7 @@ worlds.push(new Song2(radius,worlds.length,0xff8888, 0x220022));
 worlds.push(new Song3(radius,worlds.length,0xaa8888, 0x443344));
 worlds.push(new Song4(radius,worlds.length,0x777777,0x332233));
 worlds.push(new Song5(radius,worlds.length,0x000000, 0x111111));
-worlds.push(new Song6(radius,worlds.length,0xff8888, 0x220022));
+worlds.push(new Song6(radius,worlds.length,0xffffff, 0x222222));
 worlds.push(new Song7(radius,worlds.length,0xaa8888, 0x443344));
 worlds.push(new Song8(radius,worlds.length,0x777777,0x332233));
 worlds.push(new Song9(radius,worlds.length,0x000000, 0x111111));
