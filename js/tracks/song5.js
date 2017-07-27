@@ -15,12 +15,10 @@ class Song5 extends Song{
   }
 
   songDidStart(s){
-    super.songDidStart();
       //dnaCurveObject.setVisible(true);
   }
 
   songDidEnd(s){
-    super.songDidEnd();
     //dnaCurveObject.setVisible(false);
   }
 }

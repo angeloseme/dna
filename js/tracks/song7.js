@@ -6,18 +6,15 @@ class Song7 extends Song{
   }
 
   play(position){
-    super.play(position);
     worlds[(this.index+1)%worlds.length].setColor(new THREE.Color(1-frequencyData[3]/255.0,1-frequencyData[4]/255.0,1-frequencyData[5]/255.0).getHex(),
                       new THREE.Color(frequencyData[6]/255.0,frequencyData[7]/255.0,frequencyData[8]/255.0).getHex());
   }
 
   songDidStart(s){
-    super.songDidStart();
     //dnaCurveObject.setVisible(true);
   }
 
   songDidEnd(s){
-    super.songDidEnd();
     //dnaCurveObject.setVisible(false);
   }
 }

@@ -12,7 +12,6 @@ class Song10 extends Song{
   }
 
   songDidStart(s){
-    super.songDidStart();
     //dnaCurveObject.scale(100*100);
 
     if(obj_file){
@@ -22,7 +21,6 @@ class Song10 extends Song{
   }
 
   songDidEnd(s){
-    super.songDidEnd();
     if(obj_file){
       obj_file.visible=false;
     }

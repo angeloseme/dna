@@ -47,11 +47,11 @@ function initGUI(){
   var folderGeneral = gui.addFolder( 'General' );
   var folderLight = gui.addFolder( 'Light' );
   folderGeneral.add( params, 'playback', 0.0, 1 ).onChange( function( value ) {
-    camera.position.set(camera.position.x,camera.position.y,   -(params.playback-1)*(outer_radius-inner_radius)+inner_radius);
+    camera.position.set(0,0, outer_radius-value*(outer_radius-inner_radius));
    } ).listen();
   folderGeneral.add( params, 'song', 1, 10 ).step(1).onChange( function( value ) { setSong(value-1); } ).listen();
   folderGeneral.add( params, 'playing');
-  folderGeneral.add( params, 'auto_rotate');
+  folderGeneral.add( params, 'auto_rotate').onChange( function( value ) { controls.autoRotate=value;} ).listen();
 
   var folderDNA = gui.addFolder( 'DNA' );
   folderDNA.add(params, 'dna_index', 0.0, dnaCurveObject.vertices.length).step(1).onChange( function( value ) { dnaCurveObject.moveToIndex(value); } ).listen();
@@ -207,16 +207,17 @@ function animate() {
   elapsedTime=timer.getElapsedTime()*0.5;
   //PROCESS CAMERA POSITION -> PLAY CURRENT SONG
   var dist=camera.position.distanceTo(new THREE.Vector3(0,0,0));
-  $('#info').text(currentSong.author+" - "+currentSong.title);
   if(dist<inner_radius*1.1){
     setSong(currentSong.index+1);
   }
   if(dist>outer_radius){
     setSong(currentSong.index-1,-1);
   }
-  params.playback=1-(camera.position.z-inner_radius)/(outer_radius-inner_radius);
-  currentSong.play(params.playback);
+  $('#info').text(dist+" / "+camera.position.z);
 
+  params.playback=(outer_radius-dist)/(outer_radius-inner_radius);
+  currentSong.play(params.playback);
+  controls.autoRotate=params.autoRotate;
   /*
   for(var i=1;i<worlds.length;i++){
     if(dist>worlds[i-1].radius && dist<worlds[i].radius){

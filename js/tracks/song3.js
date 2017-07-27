@@ -10,13 +10,11 @@ class Song3 extends Song{
   }
 
   songDidStart(s){
-    super.songDidStart();
     dnaCurveObject.setVisible(true);
     dnaCurveObject.moveToNext();
   }
 
   songDidEnd(s){
-    super.songDidEnd();
     dnaCurveObject.setVisible(false);
   }
 }

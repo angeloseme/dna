@@ -6,17 +6,15 @@ class Song4 extends Song{
   }
 
   play(position){
-    super.play(position);
   }
 
   songDidStart(s){
-    super.songDidStart();
     dnaCurveObject.setVisible(true);
     dnaCurveObject.moveToNext();
   }
 
   songDidEnd(s){
-    super.songDidEnd();
     dnaCurveObject.setVisible(false);
   }
+
 }

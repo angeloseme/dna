@@ -19,7 +19,6 @@ class Song {
   }
 
   songDidStart(s){
-    console.log("New song: "+this.author+" - "+this.title);
   }
 
   songDidEnd(s){

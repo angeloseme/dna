@@ -12,15 +12,16 @@ class Song6 extends Song{
   play(position){
     super.play(position);
     this.satellite.position.set(this.orbit*Math.sin(elapsedTime),0*Math.cos(elapsedTime),this.orbit*Math.cos(elapsedTime));
+    //ambientLight.intensity=frequencyData[2]/255;
   }
 
   songDidStart(s){
-    super.songDidStart();
+    //this.prev_ambient_light_intensity=ambientLight.intensity;
     //dnaCurveObject.setVisible(true);
   }
 
   songDidEnd(s){
-    super.songDidEnd();
+    //ambientLight.intensity=this.prev_ambient_light_intensity;
     //dnaCurveObject.setVisible(false);
   }
 }
