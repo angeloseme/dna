@@ -14,7 +14,6 @@ class Song1 extends Song{
   songDidStart(s){
     dnaCurveObject.setVisible(true);
     dnaCurveObject.moveToNext();
-    params.auto_rotate=controls.autoRotate=true;
   }
 
   songDidEnd(s){

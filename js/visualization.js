@@ -31,9 +31,9 @@ var params = {
   directional_light_intensity:0.5,
   dna_index:0,
   dna_scale:1,
-  transition_speed:0.6,
+  transition_speed:0.1,
   playing:true,
-  auto_rotate:false
+  auto_rotate:true
 };
 
 //SETUP DEBUG GUI
@@ -50,11 +50,11 @@ function initGUI(){
     camera.position.set(0,0, outer_radius-value*(outer_radius-inner_radius));
    } ).listen();
   folderGeneral.add( params, 'song', 1, 10 ).step(1).onChange( function( value ) { setSong(value-1); } ).listen();
-  folderGeneral.add( params, 'playing');
-  folderGeneral.add( params, 'auto_rotate').onChange( function( value ) { controls.autoRotate=value;} ).listen();
+  folderGeneral.add( params, 'playing').listen();
+  folderGeneral.add( params, 'auto_rotate').onChange(function( value ) {setAutoRotate(value) }).listen();
 
   var folderDNA = gui.addFolder( 'DNA' );
-  folderDNA.add(params, 'dna_index', 0.0, dnaCurveObject.vertices.length).step(1).onChange( function( value ) { dnaCurveObject.moveToIndex(value); } ).listen();
+  folderDNA.add(params, 'dna_index', 0.0, dnaCurveObject.vertices.length-1).step(1).onChange( function( value ) { dnaCurveObject.moveToIndex(value); } ).listen();
   folderDNA.add(params, 'dna_scale', 0.0, 5 ).onChange( function( value ) {dnaCurveObject.scale(value);} ).listen();
   folderDNA.add(params, 'transition_speed', 0.0000001, 1 ).onChange( function( value ) {  dnaCurveObject.transition_speed=1.0-value;} ).listen();
 
@@ -64,6 +64,7 @@ function initGUI(){
   folderLight.add(params, 'directional_light_intensity', 0.0, 1.0).onChange( function( value ) {  directionalLight.intensity=value;} ).listen();
   folderGeneral.open();
   songsGui = gui.addFolder( 'Songs' );
+
 
 }
 
@@ -106,7 +107,7 @@ function init(){
 
   controls = new THREE.OrbitControls(camera);
   controls.zoomSpeed = 0.2;
-
+  setAutoRotate(true);
 
   populateScene();
   camera.position.set( 0, 0, worlds[worlds.length-1].radius );
@@ -190,6 +191,7 @@ function setSong(i, direction=1){
   currentSong=worlds[index];
   currentSong.songDidStart();
   params.song=index+1;
+  $('#info').text(worlds[index].author+" - "+worlds[index].title);
 }
 
 function next(){
@@ -203,7 +205,6 @@ function animate() {
   //worlds[0].setColor(0xffffff*Math.random(),0xffffff*Math.random());
   //$('#log').text(controls.constraint.getPolarAngle()+" "+Math.floor(camera.position.distanceTo(new THREE.Vector3(0,0,0))));
 
-
   elapsedTime=timer.getElapsedTime()*0.5;
   //PROCESS CAMERA POSITION -> PLAY CURRENT SONG
   var dist=camera.position.distanceTo(new THREE.Vector3(0,0,0));
@@ -213,11 +214,11 @@ function animate() {
   if(dist>outer_radius){
     setSong(currentSong.index-1,-1);
   }
-  $('#info').text(dist+" / "+camera.position.z);
+//  $('#info').text(dist+" / "+camera.position.z);
 
   params.playback=(outer_radius-dist)/(outer_radius-inner_radius);
   currentSong.play(params.playback);
-  controls.autoRotate=params.autoRotate;
+
   /*
   for(var i=1;i<worlds.length;i++){
     if(dist>worlds[i-1].radius && dist<worlds[i].radius){
@@ -226,7 +227,7 @@ function animate() {
           currentSong.songDidEnd();
         worlds[i].songDidStart();
       //  $('#info').fadeOut(1000,function(){
-        //$('#info').text(worlds[i].author+" - "+worlds[i].title);
+        //
         //  $('#info').text("fjsdklfjldskfjl");
         //  $('#info').fadeIn();
         //  });
@@ -244,7 +245,7 @@ function animate() {
       params.playback=position;
     }
   }*/
-  if(params.playing)controls.constraint.dollyIn(1.001);
+  if(params.playing)controls.constraint.dollyIn(1.0001);
 
 /*
   //RECURSIVE CAMERA MOVEMENT
@@ -271,4 +272,8 @@ function animate() {
 
 function render() {
   renderer.render( scene, camera );
+}
+
+function setAutoRotate(f){
+  params.auto_rotate=controls.autoRotate=f;
 }

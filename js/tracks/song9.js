@@ -18,7 +18,6 @@ class Song9 extends Song{
       obj_file.scale.set(0.8,0.8,0.8);
       obj_file.material.color=new THREE.Color(0x000000);
     }
-    params.auto_rotate=true;
   }
 
   songDidEnd(s){
@@ -27,8 +26,6 @@ class Song9 extends Song{
       obj_file.material.color=new THREE.Color(0xffffff);
       obj_file.material.needsUpdate=true;
     }
-    controls.autoRotate=false;
-    params.auto_rotate=false;
     //dnaCurveObject.setVisible(false);
 
   }

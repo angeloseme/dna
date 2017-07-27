@@ -24,7 +24,7 @@ DNACurveObject = function (n_points,resolution){
     var geometry = new THREE.Geometry();
     this.dnaCurveObject = new THREE.Line( geometry, this.line_material );
     //scene.add(  );
-    const sphereGeomtry = new THREE.SphereBufferGeometry( 0.025,5,5 );
+    const sphereGeomtry = new THREE.SphereBufferGeometry( 0.01,5,5 );
     for(var i=0;i<this.n_points;i++){
       var helper = new THREE.Mesh( sphereGeomtry, this.sphere_material );
       //helper.position.copy( this.dnaCurve.points[i] );
@@ -77,9 +77,9 @@ DNACurveObject = function (n_points,resolution){
     positions.push(new THREE.Vector3(0,0,0));
     for(var i=1;i<this.n_points;i++){
     	positions.push(new THREE.Vector3(
-        positions[positions.length-1].x+scale*(Math.random()*1.1-0.5),//*i-i,
-    		positions[positions.length-1].y+scale*(Math.random()*1.1-0.5),//*i-i,
-    		positions[positions.length-1].z+scale*(Math.random()*1.1-0.5)));//*i-i));
+        positions[positions.length-1].x+scale*(Math.random()*1.01-0.5),//*i-i,
+    		positions[positions.length-1].y+scale*(Math.random()*1.01-0.5),//*i-i,
+    		positions[positions.length-1].z+scale*(Math.random()*1.01-0.5)));//*i-i));
     }
     this.addVertices(positions);
   }
