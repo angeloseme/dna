@@ -13,9 +13,9 @@ class Song10 extends Song{
 
   songDidStart(s){
     //dnaCurveObject.scale(100*100);
-
+    this.setColor(0x111111,0x222222);
     if(obj_file){
-      obj_file.scale.set(2,2,2);
+      obj_file.scale.set(1.5,1.5,1.5);
       obj_file.visible=true;
     }
   }

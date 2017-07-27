@@ -119,7 +119,7 @@ function init(){
 
   window.addEventListener( 'resize', onResize );
 
-  setSong(0);
+  setSong(5);
 
   animate();
 }
@@ -155,7 +155,7 @@ worlds.push(new Song5(radius,worlds.length,0x000000, 0x111111));
 worlds.push(new Song6(radius,worlds.length,0xffffff, 0x222222));
 worlds.push(new Song7(radius,worlds.length,0xaa8888, 0x443344));
 worlds.push(new Song8(radius,worlds.length,0x777777,0x332233));
-worlds.push(new Song9(radius,worlds.length,0x000000, 0x111111));
+worlds.push(new Song9(radius,worlds.length,0x000000, 0x102030));
 worlds.push(new Song10(radius,worlds.length,0xff8888, 0x220022));
   for(var i=0;i<worlds.length;i++){
     worlds[i].songDidEnd();
@@ -245,7 +245,7 @@ function animate() {
       params.playback=position;
     }
   }*/
-  if(params.playing)controls.constraint.dollyIn(1.0001);
+  if(params.playing)controls.constraint.dollyIn(1.001);
 
 /*
   //RECURSIVE CAMERA MOVEMENT

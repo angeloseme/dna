@@ -123,7 +123,7 @@ DNACurveObject = function (n_points,resolution){
   this.setIndex=function(index){
     if(index!=this.index){
       for(var i=0;i<this.n_points;i++)
-        this.current_vertices[i].copy(this.dnaCurve.points[i]);
+        this.current_vertices[i].copy(this.vertices[this.index][i]);
       this.index=index;
       console.log("changing to "+this.index+"!");
       this.alpha=0.9999;

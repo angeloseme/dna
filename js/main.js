@@ -11,3 +11,8 @@
   sound.once('load', function(){
     sound.play();
   });
+
+  document.addEventListener( 'mousedown',  function(){
+    sound.play();
+    document.getElementById('video').play();
+  }, false );
